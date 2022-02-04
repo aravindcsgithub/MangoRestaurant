@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Mango.Web.Models.ProductDto>
+@{
+    ViewData["Title"] = "Order Page";
+}
+
+<div class="container p-4">
+    <div class="row mb-2">
+        <div class="col">
+            <h3>Order Now</h3>
+        </div>
+        <div class="col text-end">
+            <a asp-action="OrderCreate" class="btn btn-outline-info"><i class="fa fa-shopping-cart"></i> Cart</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var product in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="card">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@Html.Raw(product.Description)</p>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <h4 class="font-weight-bold">@product.Price.ToString("c")</h4>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-12 text-end">
+                                    <a asp-action="Details" asp-route-productID="@product.ProductId" class="btn btn-primary">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Mango.Web.Models.ProductDto>
+@{
+    ViewData["Title"] = "Products Page";
+}
+
+<div class="container p-4">
+    <div class="row">
+        <div class="col">
+            <h3>Products</h3>
+        </div>
+        <div class="col text-end">
+            <a asp-action="ProductCreate" class="btn btn-outline-info"><i class="fa fa-plus"></i> New Product</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        int i = 1;
+                        foreach (var product in Model)
+                        {
+                            <tr>
+                                <td scope="col">@(i++)</td>
+                                <td>@product.Name</td>
+                                <td>@product.CategoryName</td>
+                                <td>@product.Price.ToString("c")</td>
+                                <td>
+                                    <a asp-action="ProductEdit" asp-route-productID="@product.ProductId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                    <a asp-action="ProductDelete" asp-route-productID="@product.ProductId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
